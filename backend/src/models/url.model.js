@@ -1,35 +1,33 @@
 import mongoose, { Schema } from "mongoose";
 
-const userSchema = new Schema(
+const urlSchema = new Schema(
   {
-    googleId: {
-      type: String,
-      required: true,
-    },
-    email: {
+    longUrl: {
       type: String,
       required: true,
       lowercase: true,
       trim: true,
     },
-    fullname: {
+    alias: {
       type: String,
-      required: true,
       lowercase: true,
       trim: true,
     },
-    avatar: {
+    topic: {
+      type: String,
+      trim: true,
+    },
+    shortUrl: {
       type: String,
       required: true,
+      trim: true,
     },
-    refreshToken: {
-      type: String,
-    },
-    accessToken: {
-      type: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }
 );
 
-export const User = mongoose.model("User", userSchema);
+export const Url = mongoose.model("Url", urlSchema);
