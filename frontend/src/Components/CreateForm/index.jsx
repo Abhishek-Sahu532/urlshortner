@@ -21,7 +21,6 @@ export function CreateForm() {
 
   const { error, success } = useSelector((state) => state.newUrl);
   const onSubmit = async (data) => {
-    console.log("register");
     const newurlData = {
       longUrl: data.longUrl,
       alias: data.alias,
@@ -110,7 +109,7 @@ export function CreateForm() {
             type="text"
             size="lg"
             placeholder="Category"
-            {...register("category", {required : false})}
+            {...register("category", { required: false })}
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",

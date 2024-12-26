@@ -12,15 +12,15 @@ export const UserSlices = createSlice({
   name: "user",
   initialState,
   reducers: {
-    registerUserRequest: (state) => {
+    getLoggedUserDetailsRequest: (state) => {
       state.loading = true;
     },
-    registerUserSuccess: (state, action) => {
+    getLoggedUserDetailsRequestSuccess: (state, action) => {
       state.currentUser = {};
       state.loading = false;
       state.success = action.payload.success;
     },
-    registerUserFailure: (state, action) => {
+    getLoggedUserDetailsRequestFailure: (state, action) => {
       state.currentUser = {};
       state.loading = false;
       state.success = false;
@@ -29,6 +29,10 @@ export const UserSlices = createSlice({
   },
 });
 
-export const { registerUserRequest } = UserSlices.actions;
+export const {
+  getLoggedUserDetailsRequest,
+  getLoggedUserDetailsRequestSuccess,
+  getLoggedUserDetailsRequestFailure,
+} = UserSlices.actions;
 
 export default UserSlices.reducer;

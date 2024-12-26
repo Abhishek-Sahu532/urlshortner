@@ -19,8 +19,6 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log('accessToken', accessToken)
-        console.log('refreshToken', refreshToken)
         const user = await User.findOneAndUpdate(
           { googleId: profile.id },
           {
@@ -28,11 +26,9 @@ passport.use(
             email: profile.emails[0].value,
             fullname: profile.displayName,
             avatar: profile.photos[0]?.value,
-            accessToken: accessToken,
           },
           { upsert: true, new: true }
         );
-
         return done(null, user);
       } catch (error) {
         console.error("Error during Google OAuth Strategy:", error);
