@@ -1,8 +1,8 @@
 import { User } from "../models/user.model.js";
 
-export const logOut = async (req, res, next) => {
+export const logoutUser = async (req, res, next) => {
   try {
-    res.cookie("token", null, {
+    res.cookie("accessToken", null, {
       expires: new Date(Date.now()),
       httpOnly: true,
     });

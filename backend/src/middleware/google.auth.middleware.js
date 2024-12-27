@@ -19,6 +19,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        
         const user = await User.findOneAndUpdate(
           { googleId: profile.id },
           {
@@ -26,6 +27,8 @@ passport.use(
             email: profile.emails[0].value,
             fullname: profile.displayName,
             avatar: profile.photos[0]?.value,
+            avatar: profile.photos[0]?.value,
+     
           },
           { upsert: true, new: true }
         );

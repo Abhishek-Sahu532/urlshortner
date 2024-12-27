@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-
+import cookieParser from 'cookie-parser'
 dotenv.config({
   path: "./src/.env",
 });
@@ -29,6 +29,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieParser());
+
 app.use(
   session({
     store: MongoStore.create({
@@ -55,8 +57,9 @@ import googleAuth from "./routes/userRoutes.js";
 
 app.use("/auth", googleAuth);
 
-import apiRouter from "./routes/apiRoutes.js";
+import urlRoutes from "./routes/urlRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
-app.use("/api/v1", apiRouter);
+app.use("/api/v1", urlRoutes, userRoutes);
 
 export default app;

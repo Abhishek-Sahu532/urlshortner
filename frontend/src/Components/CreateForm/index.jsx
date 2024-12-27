@@ -96,12 +96,35 @@ export function CreateForm() {
             type="text"
             size="lg"
             placeholder="Alias"
-            {...register("alias", { maxLength: 8, minLength: 4 })}
+            {...register("alias", { minLength: 4, maxLength: 10 })}
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",
             }}
           />
+          <p class="-mt-10 flex  items-center text-sm text-slate-500 font-light">
+            <svg
+              class="  h-16 w-16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke="#CCCCCC"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke="#CCCCCC"
+                stroke-width="0.336"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <circle cx="12" cy="12" r="2" fill="#CCCCCC"></circle>{" "}
+              </g>
+            </svg>
+            Please select a word between 4 to 10 characters
+          </p>
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Topic/ Category
           </Typography>
@@ -117,7 +140,12 @@ export function CreateForm() {
           />
         </div>
 
-        <Button className="mt-6" fullWidth type="submit">
+        <Button
+          className="mt-6"
+          fullWidth
+          type="submit"
+          disabled={isSubmitting ? true : false}
+        >
           Shorten URL
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">

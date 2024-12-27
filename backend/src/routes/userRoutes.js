@@ -9,9 +9,8 @@ const router = Router();
 export const generateAccessAndRefreshToken = async (userId) => {
   try {
     const user = await User.findById(userId);
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.refreshAccessToken();
-    user.refreshToken = refreshToken;
+    const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.refreshAccessToken();
     await user.save({ validateBeforeSave: false });
     //to not touch the validation specially the password , just update the refresh token
     return { accessToken, refreshToken };
@@ -38,12 +37,13 @@ router.get(
   async (req, res) => {
     try {
       const user = req.user;
+
       if (!user) {
         return res.redirect("/login");
       }
       // Generate tokens asynchronously
       const { refreshToken, accessToken } = await generateAccessAndRefreshToken(
-        user._id
+        user?._id
       );
       const options = {
         path: "/",
@@ -51,7 +51,6 @@ router.get(
         secure: true,
         sameSite: "none",
       };
-
       res.cookie("accessToken", accessToken, options);
       res.cookie("refreshToken", refreshToken, options);
       const redirectUrl =

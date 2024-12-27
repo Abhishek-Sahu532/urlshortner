@@ -10,12 +10,15 @@ import {
   getLoggedUserDetailsRequestFailure,
 } from "./Redux/Slices/UserSlices";
 import axios from "axios";
+import { StickyNavbar } from "./Components";
 
 function App() {
   const dispatch = useDispatch();
 
   // const { error, success } = useSelector((state) => state.user);
 
+
+  //getting the new c
   const getCurrentUserDetails = async () => {
     try {
       dispatch(getLoggedUserDetailsRequest());
@@ -23,12 +26,12 @@ function App() {
       if (import.meta.env.VITE_DEV_MODE == "production") {
         res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/me`);
       } else {
-        res = await axios.get(`/api/v1/api/shorten`);
+        res = await axios.get(`/api/v1/me`);
       }
-      console.log("res", res?.data);
+      // console.log("res", res?.data);
       dispatch(getLoggedUserDetailsRequestSuccess(res?.data));
     } catch (error) {
-      console.log(error?.message);
+      console.log(error?.response?.data);
       dispatch(getLoggedUserDetailsRequestFailure(error?.response?.data));
     }
   };
@@ -39,7 +42,8 @@ function App() {
 
   return (
     <>
-      <div className="w-screen relative t  min-h-screen">
+      <div className="w-screen relative t  min-h-screen overflow-hidden p-4">
+        <StickyNavbar />
         <Outlet />
         <ToastContainer
           stacked

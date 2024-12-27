@@ -1,4 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config({
+  path: "./src/.env",
+});
+
 import mongoose, { Schema } from "mongoose";
+import  jwt  from "jsonwebtoken";
+
 
 const userSchema = new Schema(
   {
@@ -34,17 +41,17 @@ const userSchema = new Schema(
 
 
 userSchema.methods.generateAccessToken = function () {
-  return jwt.sign(
+   return jwt.sign(
     {
       _id: this._id,
       email: this.email,
-      googleId: this.googleId,
       fullname: this.fullname,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
+    
   );
 };
 

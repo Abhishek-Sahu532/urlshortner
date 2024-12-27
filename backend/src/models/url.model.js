@@ -22,6 +22,9 @@ const urlSchema = new Schema(
       required: true,
       trim: true,
     },
+    totalClicks: {
+      type: Number,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
